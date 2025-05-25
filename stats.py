@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
+import argparse
 
 
 def analyze_and_plot_data(csv_path: Path):
@@ -99,6 +100,22 @@ def analyze_and_plot_data(csv_path: Path):
     plt.show()
 
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input", type=Path, required=True, help="Path to the input CSV file."
+    )
+
+    args = parser.parse_args()
+
+    try:
+        analyze_and_plot_data(args.input)
+    except Exception as e:
+        print(f"An error occurred during the main execution: {e}")
+        import traceback
+
+        traceback.print_exc()
+
+
 if __name__ == "__main__":
-    csv_filepath = Path("SG.csv")
-    analyze_and_plot_data(csv_filepath)
+    main()
